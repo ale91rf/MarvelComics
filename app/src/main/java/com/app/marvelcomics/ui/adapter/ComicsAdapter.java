@@ -2,6 +2,7 @@ package com.app.marvelcomics.ui.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.app.marvelcomics.R;
 import com.app.marvelcomics.model.Comic;
+import com.app.marvelcomics.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,9 +29,10 @@ public class ComicsAdapter extends RecyclerView.Adapter<ComicsAdapter.ComicsView
     private List<Comic> mComics;
     private Activity mActivity;
 
+
     public ComicsAdapter(Activity aActivity) {
-        mActivity = aActivity;
-        mComics   = new ArrayList<>();
+        mActivity  = aActivity;
+        mComics    = new ArrayList<>();
     }
 
     public void addAll(Collection<Comic> aCollection) {
@@ -64,7 +68,7 @@ public class ComicsAdapter extends RecyclerView.Adapter<ComicsAdapter.ComicsView
     public class ComicsViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.image_comic)
-        ImageView imageComic;
+        ImageView mImageComic;
         @Bind(R.id.lbl_comic_name)
         TextView mName;
         @Bind(R.id.relative_comic)
@@ -79,6 +83,7 @@ public class ComicsAdapter extends RecyclerView.Adapter<ComicsAdapter.ComicsView
         public void render(Comic aComic, Activity aActivity) {
 
             mName.setText(aComic.getmTitle());
+            Picasso.with(aActivity).load(Utils.getAllImagePath(aComic.getmThumbnail())).into(mImageComic);
         }
     }
 }
