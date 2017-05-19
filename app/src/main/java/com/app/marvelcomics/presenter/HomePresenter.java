@@ -8,5 +8,5 @@ import com.app.marvelcomics.ui.view.HomeView;
 
 public interface HomePresenter extends BasePresenter<HomeView> {
 
-    void getCommics();
+    void getCommics(Long aTimestamp);
 }

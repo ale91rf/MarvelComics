@@ -1,8 +1,10 @@
 package com.app.marvelcomics.ui.activity;
 
+import android.content.Context;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,6 +14,7 @@ import com.app.marvelcomics.App;
 import com.app.marvelcomics.R;
 import com.app.marvelcomics.model.Comic;
 import com.app.marvelcomics.presenter.HomePresenter;
+import com.app.marvelcomics.ui.adapter.ComicsAdapter;
 import com.app.marvelcomics.ui.view.HomeView;
 import com.app.marvelcomics.utils.Constants;
 
@@ -34,6 +37,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Bind(R.id.progress_bar)
     ContentLoadingProgressBar mProgress;
 
+    private ComicsAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +49,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         setupRecyclerView();
         toolbarSetup();
         mPresenter.bind(this);
-
+        mPresenter.getCommics(getTimestamp());
     }
 
     @Override
@@ -74,7 +79,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @Override
     public void setupRecyclerView() {
-
+        mAdapter = new ComicsAdapter(this);
+        mRecycler.setHasFixedSize(true);
+        mRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mRecycler.setNestedScrollingEnabled(false);
+        mRecycler.setAdapter(mAdapter);
     }
 
     @Override
@@ -84,6 +93,17 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @Override
     public void displayComics(List<Comic> aList) {
+        mAdapter.addAll(aList);
+        mAdapter.notifyDataSetChanged();
+    }
 
+    @Override
+    public Context getContext() {
+        return getApplicationContext();
+    }
+
+    @Override
+    public Long getTimestamp() {
+        return System.currentTimeMillis()/1000;
     }
 }

@@ -6,9 +6,7 @@ import com.app.marvelcomics.di.component.AppComponent;
 import com.app.marvelcomics.di.component.DaggerAppComponent;
 import com.app.marvelcomics.di.module.AndroidModule;
 
-/**
- * Created by alejandro on 18/5/17.
- */
+
 
 public class App extends Application {
 

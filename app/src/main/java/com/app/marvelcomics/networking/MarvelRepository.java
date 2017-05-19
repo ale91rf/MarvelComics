@@ -20,7 +20,7 @@ public interface MarvelRepository {
             @Path(CHARACTER_ID) String characterId,
             @Query(API_KEY) String publicKey,
             @Query(HASH) String hash,
-            @Query(TIMESTAMP) long timestamp);
+            @Query(TIMESTAMP) String timestamp);
 
 
 }

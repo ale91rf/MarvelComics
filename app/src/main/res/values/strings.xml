@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MarvelComics</string>
+
+    <string name="server_problems">Server problems</string>
+    <string name="no_comics">No comics for this character</string>
+
 </resources>
