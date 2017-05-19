@@ -1,6 +1,8 @@
 package com.app.marvelcomics.presenter;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.app.marvelcomics.App;
 import com.app.marvelcomics.R;
@@ -9,6 +11,7 @@ import com.app.marvelcomics.networking.NetworkRequestAndroid;
 import com.app.marvelcomics.ui.view.HomeView;
 import com.app.marvelcomics.utils.Constants;
 import com.app.marvelcomics.utils.HashGenerator;
+import com.app.marvelcomics.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -21,6 +24,9 @@ public class HomePresenterImp implements HomePresenter {
     @Inject
     MarvelRepository mApi;
 
+    @Inject
+    ConnectivityManager mConnectivity;
+
     private HomeView mView;
     private Subscription mSubscription = Subscriptions.empty();
 
@@ -31,26 +37,37 @@ public class HomePresenterImp implements HomePresenter {
 
     @Override
     public void getCommics(Long aTimeStamp) {
-        mView.showProgress();
 
-        String lHash = HashGenerator.generate(aTimeStamp, Constants.PRIVATE_KEY, Constants.PUBLIC_KEY);
+        NetworkInfo lNetworkInfo = mConnectivity.getActiveNetworkInfo();
 
-        mSubscription = NetworkRequestAndroid.performAsyncRequest(mApi.getComics(Constants.THOR_ID, Constants.PUBLIC_KEY,
-                lHash, aTimeStamp.toString()),
-                (aResponse) -> {
-                    mView.hideProgress();
-                    if (aResponse == null || aResponse.getmData() == null || aResponse.getmData().getmComics() == null){
+        if(Utils.isNetworkAvailable(lNetworkInfo)){
+
+            mView.showProgress();
+
+            String lHash = HashGenerator.generate(aTimeStamp, Constants.PRIVATE_KEY, Constants.PUBLIC_KEY);
+
+            mSubscription = NetworkRequestAndroid.performAsyncRequest(mApi.getComics(Constants.THOR_ID, Constants.PUBLIC_KEY,
+                    lHash, aTimeStamp.toString()),
+                    (aResponse) -> {
+                        mView.hideProgress();
+                        if (aResponse == null || aResponse.getmData() == null || aResponse.getmData().getmComics() == null){
+                            mView.showMessage(mView.getContext().getString(R.string.server_problems));
+                        }else if (aResponse.getmData().getmComics().size() == 0){
+                            mView.showMessage(mView.getContext().getString(R.string.no_comics));
+                        }else {
+                            mView.displayComics(aResponse.getmData().getmComics());
+                        }
+
+                    }, (aError) -> {
+                        mView.hideProgress();
                         mView.showMessage(mView.getContext().getString(R.string.server_problems));
-                    }else if (aResponse.getmData().getmComics().size() == 0){
-                        mView.showMessage(mView.getContext().getString(R.string.no_comics));
-                    }else {
-                        mView.displayComics(aResponse.getmData().getmComics());
-                    }
+                    });
+        }else {
+            mView.showMessage(mView.getContext().getString(R.string.no_internet));
 
-                }, (aError) -> {
-                    mView.hideProgress();
-                    mView.showMessage(mView.getContext().getString(R.string.server_problems));
-                });
+        }
+
+
 
 
 

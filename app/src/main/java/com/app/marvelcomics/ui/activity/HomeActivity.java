@@ -17,6 +17,7 @@ import com.app.marvelcomics.presenter.HomePresenter;
 import com.app.marvelcomics.ui.adapter.ComicsAdapter;
 import com.app.marvelcomics.ui.view.HomeView;
 import com.app.marvelcomics.utils.Constants;
+import com.app.marvelcomics.utils.Utils;
 
 import java.util.List;
 
