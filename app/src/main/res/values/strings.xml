@@ -3,5 +3,6 @@
 
     <string name="server_problems">Server problems</string>
     <string name="no_comics">No comics for this character</string>
+    <string name="no_internet">There is not internet connection</string>
 
 </resources>
