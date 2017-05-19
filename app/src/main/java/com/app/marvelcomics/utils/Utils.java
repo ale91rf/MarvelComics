@@ -8,14 +8,17 @@ import com.app.marvelcomics.model.Thumbnail;
 
 public class Utils {
 
-    static String INCREDIBLE = "landscape_incredible";
-    static String MEDIUM     = "landscape_medium";
     static String LARGE      = "landscape_large";
+    static String FANTASTIC  = "standard_fantastic";
 
 
 
-    public static String getAllImagePath(Thumbnail aThumb) {
+    public static String getLargeImagePath(Thumbnail aThumb) {
         return aThumb.getmPath() + "/" + LARGE + "." + aThumb.getmExtension();
+    }
+
+    public static String getFantasticImagePath(Thumbnail aThumb) {
+        return aThumb.getmPath() + "/" + FANTASTIC + "." + aThumb.getmExtension();
     }
 }
 

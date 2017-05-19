@@ -17,7 +17,6 @@ public interface HomeView {
     void displayComics(List<Comic> aList);
 
     Context getContext();
-
     Long getTimestamp();
 
 }

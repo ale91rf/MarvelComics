@@ -13,4 +13,9 @@ public class Constants {
 
     public static final String HOME_TOOLBAR_TITLE = "Thor's comics";
 
+    public static final String TITLE = "title";
+    public static final String DESCRIPTION = "description";
+    public static final String PATH = "path";
+
+
 }
