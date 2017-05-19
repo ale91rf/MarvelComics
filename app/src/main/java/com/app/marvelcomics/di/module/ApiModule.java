@@ -1,7 +1,7 @@
 package com.app.marvelcomics.di.module;
 
 import com.app.marvelcomics.BuildConfig;
-import com.app.marvelcomics.networking.RestApi;
+import com.app.marvelcomics.networking.MarvelRepository;
 import com.app.marvelcomics.utils.Constants;
 import com.google.gson.Gson;
 
@@ -62,8 +62,8 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    RestApi provideRestApi(Retrofit retrofit) {
-        return retrofit.create(RestApi.class);
+    MarvelRepository provideRestApi(Retrofit retrofit) {
+        return retrofit.create(MarvelRepository.class);
     }
 
 

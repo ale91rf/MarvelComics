@@ -23,6 +23,14 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         ((App)getApplication()).getAppComponent().inject(this);
 
         mPresenter.bind(this);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mPresenter.unbind();
     }
 
     @Override
