@@ -14,5 +14,6 @@ public class Constants {
     public static final String CHARACTER_NAME = "Thor";
     public static final String THOR_ID   = "1009664";
 
+    public static final String HOME_TOOLBAR_TITLE = "Thor's comics";
 
 }

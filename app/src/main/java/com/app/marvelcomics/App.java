@@ -20,7 +20,7 @@ public class App extends Application {
 
     protected AppComponent initDagger(App application) {
         return DaggerAppComponent.builder()
-                .appModule(new AndroidModule(application))
+                .androidModule(new AndroidModule(application))
                 .build();
     }
 
