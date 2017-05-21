@@ -16,8 +16,6 @@ import dagger.Component;
 public interface AppComponent {
 
     void inject(HomeActivity aActivity);
-
-    void inject(HomePresenterImp aHomePresenter);
-
+    
 
 }

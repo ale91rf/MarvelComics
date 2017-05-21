@@ -1,8 +1,10 @@
 package com.app.marvelcomics.di.module;
 
 
-import android.content.Context;
+import android.net.ConnectivityManager;
 
+import com.app.marvelcomics.interactor.GetComicsInteractor;
+import com.app.marvelcomics.networking.MarvelRepository;
 import com.app.marvelcomics.presenter.HomePresenter;
 import com.app.marvelcomics.presenter.HomePresenterImp;
 
@@ -15,7 +17,14 @@ import dagger.Provides;
 public class PresenterModule {
     @Provides
     @Singleton
-    HomePresenter provideHomePresenter(Context context) {
-        return new HomePresenterImp(context);
+    HomePresenter provideHomePresenter(GetComicsInteractor aInteractor, ConnectivityManager aConnectivity) {
+        return new HomePresenterImp(aInteractor, aConnectivity);
     }
+
+    @Provides
+    @Singleton
+    public GetComicsInteractor provideGetComicsInteractor(MarvelRepository aApi) {
+        return new GetComicsInteractor(aApi);
+    }
+
 }
