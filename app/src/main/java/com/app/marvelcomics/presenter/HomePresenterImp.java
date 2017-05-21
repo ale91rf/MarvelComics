@@ -31,27 +31,13 @@ public class HomePresenterImp implements HomePresenter {
 
     }
 
-    /*(aResponse) -> {
-        mView.hideProgress();
-        if (aResponse == null || aResponse.getmData() == null || aResponse.getmData().getmComics() == null){
-            mView.showMessage(mView.getContext().getString(R.string.server_problems));
-        }else if (aResponse.getmData().getmComics().size() == 0){
-            mView.showMessage(mView.getContext().getString(R.string.no_comics));
-        }else {
-            mView.displayComics(aResponse.getmData().getmComics());
-        }
-
-    }, (aError) -> {
-        mView.hideProgress();
-        mView.showMessage(mView.getContext().getString(R.string.server_problems));
-    });*/
 
     @Override
     public void getCommics(Long aTimeStamp) {
 
         NetworkInfo lNetworkInfo = mConnectivity.getActiveNetworkInfo();
 
-        if(Utils.isNetworkAvailable(lNetworkInfo)){
+        if (Utils.isNetworkAvailable(lNetworkInfo)) {
 
             mView.showProgress();
 
@@ -73,15 +59,9 @@ public class HomePresenterImp implements HomePresenter {
                     })
                     .subscribe();
 
-
-        }else {
+        } else {
             mView.showMessage(mView.getContext().getString(R.string.no_internet));
-
         }
-
-
-
-
 
     }
 
